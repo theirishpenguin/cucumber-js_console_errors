@@ -2,9 +2,8 @@
 
 ## Intro
 This gem allows you to capture Javascript console errors that occur during the
-execution of a cucumber test via the selenium driver. test will fail if there
-are any Javascript errors. This gem does not depend on jQuery or any other
-third party Javascript library.
+execution of a cucumber test via the selenium driver. This gem does not depend
+on jQuery or any other third party Javascript library.
 
 ## Installation
 
@@ -25,9 +24,9 @@ Or install it yourself using:
 ## Usage
 
 In your app/views/layouts/application.html.erb file (or equivalent) include the
-line
+line:
 
-    <%=raw Cucumber::JsConsoleErrors::inject_script %>
+    <%=raw Cucumber::JsConsoleErrors::inject_script if Rails.env == 'test' %>
 
 This will include some Javascript code on your page (to capture any JS errors
 that occur).
@@ -40,7 +39,7 @@ require 'cucumber/js_console_errors/hooks'
 
 Now when you run your cucumber suite any selenium-based cukes with
 Javascript errors will give a message such as the following in the
-cucumber output...
+cucumber output:
 
 ```
 *** JavaScript Console Error: ReferenceError: require is not defined on
@@ -49,10 +48,15 @@ line 1 for http://127.0.0.1:47099/javascripts/main.js
 environment is running minified Javascript) ***
 ```
 
-Also, if you are using capybara-screenshot or something similar you
-should see the error in the screenshot. Inspecting the HTML, if you
-debug it, will also let you see the error (near the bottom of the HTML
-source).
+Also, if you are using capybara-screenshot or something similar you should see
+the error in the screenshot. If you inspect the HTML you will also see the
+error (near the bottom of the HTML source).
+
+## TODO
+* Tests
+* Configuration
+* Possible to support drivers other than selenium
+* Fix if Rails.env == 'test' at end of "Cucumber::JsConsoleErrors::inject_script" line
 
 ## Contributing
 
